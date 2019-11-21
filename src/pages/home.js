@@ -11,18 +11,20 @@ const Container = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  padding: 40px;
 `
 const Home = () => {
   const [data, setData] = useState([])
   const [mergedData, setMergedData] = useState([])
-
   const [loading, setLoading] = useState(false)
 
+  /* add new Element to data array */
   const addData = element => {
     const newData = [...data, element]
     setData(newData)
   }
 
+  /* load random data */
   const loadRandomSet = async () => {
     setLoading(true)
     setTimeout(() => {
@@ -41,12 +43,14 @@ const Home = () => {
       setLoading(false)
     }, 1)
   }
+
+  /* delete an element from the array */
   const deleteElement = index => {
     const newData = [...data]
     newData.splice(index, 1)
     setData(newData)
   }
-
+  /* redo the merge if the data changed */
   useEffect(() => {
     setMergedData(MERGE(data))
   }, [data])

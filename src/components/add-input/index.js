@@ -1,12 +1,13 @@
 /* eslint-disable radix */
-import React, { useState } from 'react'
-import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import TextField from '@material-ui/core/TextField'
+import React, { useState } from 'react'
+import Grid from '@material-ui/core/Grid'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -20,7 +21,7 @@ const Container = styled.div`
   background: rgba(200, 200, 200, 0.4);
 `
 const textFieldStyle = {
-  width: '300px',
+  width: '100%',
   height: '57px',
   margin: '0 10px '
 }
@@ -45,22 +46,24 @@ const AddInput = ({ addData, loadRandomSet }) => {
 
   /* Check the Inputs and then add to the Array if they are alright */
   const checkAdd = () => {
+    /* check if the input fits our regex */
     if (!regex.test(input)) {
-      setError('Error bei der Eingabe')
+      setError('Fehler bei der Eingabe')
       return
     }
-    const inputArray = input.split(',')
+    let inputArray = input.split(',')
+
+    // Parse inputs to integers
     inputArray.forEach((inputNumber, index) => {
       inputArray[index] = parseInt(inputNumber)
     })
+
+    // Check if first number bigger than second number
     if (inputArray[0] > inputArray[1]) {
-      setError('Die erste Zahl muss kleiner sein als die zweite')
-      return
+      // Reverse the inputs
+      inputArray = inputArray.reverse()
     }
-    if (inputArray[0] === inputArray[1]) {
-      setError('Die beiden Zahlen dürfen nicht gleichgroß sein')
-      return
-    }
+
     addData(inputArray)
     setInput('')
   }
@@ -77,33 +80,41 @@ const AddInput = ({ addData, loadRandomSet }) => {
   }
   return (
     <Container>
-      <TextField
-        name="NumberInput"
-        label="Zahlen mit Komma getrennt eingeben"
-        placeholder="Bsp: 14, 23"
-        onChange={handleChange}
-        value={input}
-        margin="normal"
-        variant="outlined"
-        style={textFieldStyle}
-        onKeyDown={keyPress}
-        error={Boolean(error)}
-        helperText={error}
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        style={buttonStyle}
-        onClick={checkAdd}>
-        +
-      </Button>
-      <Button
-        variant="contained"
-        color="secondary"
-        style={buttonStyle}
-        onClick={handleDialogClickOpen}>
-        Zufallsdaten laden
-      </Button>
+      <Grid container spacing={2}>
+        <Grid item xs={8} sm={8} md={7} lg={4}>
+          <TextField
+            name="NumberInput"
+            label="Zahlen mit Komma getrennt eingeben"
+            placeholder="Bsp: 14, 23"
+            onChange={handleChange}
+            value={input}
+            margin="normal"
+            variant="outlined"
+            style={textFieldStyle}
+            onKeyDown={keyPress}
+            error={Boolean(error)}
+            helperText={error}
+          />
+        </Grid>
+        <Grid item xs={2} sm={2} md={2} lg={5}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={buttonStyle}
+            onClick={checkAdd}>
+            +
+          </Button>
+        </Grid>
+        <Grid item xs={12} sm={12} md={3} lg={3}>
+          <Button
+            variant="contained"
+            color="secondary"
+            style={buttonStyle}
+            onClick={handleDialogClickOpen}>
+            Zufallsdaten laden
+          </Button>
+        </Grid>
+      </Grid>
       {/* Confirm Dialog for the Random Dataset */}
       <Dialog
         open={dialogOpen}
@@ -113,7 +124,7 @@ const AddInput = ({ addData, loadRandomSet }) => {
         <DialogTitle id="alert-dialog-title">Zufallsdaten laden?</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Dabei werden Ihre bisher eingegeben Daten überschrieben. Sind sie
+            Dabei werden Ihre bisher eingegeben Daten überschrieben. Sind Sie
             sicher?
           </DialogContentText>
         </DialogContent>
