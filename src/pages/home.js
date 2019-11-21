@@ -28,10 +28,11 @@ const Home = () => {
   const loadRandomSet = async () => {
     setLoading(true)
     setTimeout(() => {
-      const data = Array.from({ length: 10 }, () => [
-        Math.floor(Math.random() * 1000000),
-        Math.floor(Math.random() * 1000000)
-      ])
+      const data = Array.from({ length: 10 }, () => {
+        const randomValue = Math.floor(Math.random() * 300)
+        const add = Math.floor(Math.random() * 10)
+        return [randomValue, randomValue + add]
+      })
       data.forEach(innerArray => {
         if (innerArray[0] > innerArray[1]) {
           const memory = innerArray[0]
