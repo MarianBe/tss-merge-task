@@ -11,7 +11,7 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   width: 100%;
-  padding: 20px;
+  padding: 40px 20px;
   display: flex;
   flex: 1;
   flex-direction: row;
@@ -28,6 +28,8 @@ const buttonStyle = {
   height: '57px',
   margin: '0 10px'
 }
+const regex = RegExp('^[0-9]+(,[ ]?[0-9]+)$')
+
 const AddInput = ({ addData, loadRandomSet }) => {
   const [input, setInput] = useState()
   const [error, setError] = useState()
@@ -43,6 +45,10 @@ const AddInput = ({ addData, loadRandomSet }) => {
 
   /* Check the Inputs and then add to the Array if they are alright */
   const checkAdd = () => {
+    if (!regex.test(input)) {
+      setError('Error bei der Eingabe')
+      return
+    }
     const inputArray = input.split(',')
     inputArray.forEach((inputNumber, index) => {
       inputArray[index] = parseInt(inputNumber)
@@ -77,8 +83,9 @@ const AddInput = ({ addData, loadRandomSet }) => {
         margin="normal"
         variant="outlined"
         style={textFieldStyle}
+        error={Boolean(error)}
+        helperText={error}
       />
-      {error}
       <Button
         variant="contained"
         color="primary"
