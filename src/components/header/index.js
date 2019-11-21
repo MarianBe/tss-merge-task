@@ -11,7 +11,10 @@ import Icon from '@material-ui/core/Icon'
 import { Link } from 'react-router-dom'
 
 const StyledMenuItem = styled.div`
-  background: '#ffffff';
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
   padding: 20px 60px 20px 40px;
   &:hover {
     background: #f6f6f6;
@@ -19,14 +22,20 @@ const StyledMenuItem = styled.div`
   }
 `
 
-const StyledIcon = styled(Icon)`
-  font-size: 16px !important;
+const StyledLink = styled(Link)`
+  font-size: 14px !important;
+  line-height: 18px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #1a1a1a;
 `
 
-const StyledTypography = styled(Typography)`
-  font-size: 16px !important;
-  padding: 0 0 0 10px;
+const StyledIcon = styled(Icon)`
+  font-size: 18px !important;
+  line-height: 1 !important;
+  margin-right: 10px;
 `
+
 const appBarStyle = { background: variables.primary }
 
 const Header = () => {
@@ -53,18 +62,18 @@ const Header = () => {
         </Toolbar>
       </AppBar>
       <Drawer open={open} onClose={() => setOpen(false)}>
-        <Link to="/home">
+        <StyledLink to="/home">
           <StyledMenuItem onClick={() => setOpen(false)}>
             <StyledIcon>home</StyledIcon>
-            <StyledTypography variant="p">Startseite</StyledTypography>
+            Startseite
           </StyledMenuItem>
-        </Link>
-        <Link to="/impressum">
+        </StyledLink>
+        <StyledLink to="/impressum">
           <StyledMenuItem onClick={() => setOpen(false)}>
-            <StyledIcon>home</StyledIcon>
-            <StyledTypography variant="p">Impressum</StyledTypography>
+            <StyledIcon>info</StyledIcon>
+            Impressum
           </StyledMenuItem>
-        </Link>
+        </StyledLink>
       </Drawer>
     </div>
   )
