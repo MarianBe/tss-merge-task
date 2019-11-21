@@ -40,7 +40,7 @@ const Header = ({ data, onDelete, title }) => {
             <Chip
               style={chipStyle}
               label={`[${element[0]}, ${element[1]}]`}
-              onDelete={onDelete ? () => onDelete(element, index) : undefined}
+              onDelete={onDelete ? () => onDelete(index) : undefined}
             />
           ))}
         </ChipContainer>
