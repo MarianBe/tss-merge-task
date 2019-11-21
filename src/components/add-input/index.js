@@ -46,14 +46,17 @@ const AddInput = ({ addData, loadRandomSet }) => {
 
   /* Check the Inputs and then add to the Array if they are alright */
   const checkAdd = () => {
+    /* check if the input fits our regex */
     if (!regex.test(input)) {
       setError('Error bei der Eingabe')
       return
     }
+    /* split the string input into an array of the values */
     const inputArray = input.split(',')
     inputArray.forEach((inputNumber, index) => {
       inputArray[index] = parseInt(inputNumber)
     })
+    /* check if the values are in the right order */
     if (inputArray[0] > inputArray[1]) {
       setError('Die erste Zahl muss kleiner sein als die zweite')
       return
