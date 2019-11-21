@@ -2,11 +2,9 @@
 
 // Function to merge overlapping intervals
 export function MERGE(intervals) {
-  console.time('Timer')
   // Check if given intervals are set and filled
-  if (!intervals || intervals.length <= 0)
-    return;
-  
+  if (!intervals || intervals.length <= 0) return
+
   // Sort intervals on first position ascending
   intervals.sort((first, second) => {
     return first[0] - second[0]
@@ -25,9 +23,9 @@ export function MERGE(intervals) {
     Skip the first element (already pushed to result)
     and merge to result if needed
    */
-  for(let i = 1; i < intervals.length; i++) {
+  for (let i = 1; i < intervals.length; i++) {
     // Get last interval from result array
-    lastInterval = result[result.length - 1];
+    lastInterval = result[result.length - 1]
 
     /* Check if first position of current interval 
       is bigger or equal than/to the last position of the previous interval
@@ -45,7 +43,6 @@ export function MERGE(intervals) {
       lastInterval[1] = intervals[i][1]
     }
   }
-  console.timeEnd('Timer')
 
   return result
 }
