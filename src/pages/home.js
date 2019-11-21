@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
-import './App.css'
+import 'theme/App.css'
 import styled from 'styled-components'
-import Header from 'components/header'
 import Chips from 'components/chips'
 import Loader from 'components/loader'
 import AddInput from 'components/add-input'
@@ -11,7 +10,7 @@ const Container = styled.div`
   flex: 1;
   flex-direction: column;
 `
-function App() {
+const Home = () => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -24,8 +23,8 @@ function App() {
     setLoading(true)
     setTimeout(() => {
       const data = Array.from({ length: 1000 }, () => [
-        Math.floor(Math.random() * 100000),
-        Math.floor(Math.random() * 100000)
+        Math.floor(Math.random() * 1000),
+        Math.floor(Math.random() * 1000)
       ])
       data.forEach(innerArray => {
         if (innerArray[0] > innerArray[1]) {
@@ -39,24 +38,19 @@ function App() {
     }, 1)
   }
 
-  const deleteElement = (toDelete, index) => {
-    console.log(index)
-    const newData = [...data]
-    newData.splice(index, 1)
-    setData(newData)
-    console.log(newData)
-  }
-
   return (
     <Container>
       {loading && <Loader />}
-      <Header />
       <Grid container spacing={1}>
         <Grid container item xs={12}>
           <AddInput addData={addData} loadRandomSet={loadRandomSet} />
         </Grid>
         <Grid container item xs={12}>
-          <Chips title="Eingabe" data={data} onDelete={deleteElement} />
+          <Chips
+            title="Eingabe"
+            data={data}
+            onDelete={element => console.log('delete', element)}
+          />
         </Grid>
         <Grid container item xs={12}>
           <Chips title="Ausgabe" data={data} />
@@ -66,4 +60,4 @@ function App() {
   )
 }
 
-export default App
+export default Home
