@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import 'theme/App.css'
 import styled from 'styled-components'
 import Chips from 'components/chips'
 import Loader from 'components/loader'
 import AddInput from 'components/add-input'
+import { MERGE } from 'services/intervalService'
 
 const Container = styled.div`
   display: flex;
@@ -14,6 +15,8 @@ const Container = styled.div`
 `
 const Home = () => {
   const [data, setData] = useState([])
+  const [mergedData, setMergedData] = useState([])
+
   const [loading, setLoading] = useState(false)
 
   const addData = element => {
@@ -24,9 +27,9 @@ const Home = () => {
   const loadRandomSet = async () => {
     setLoading(true)
     setTimeout(() => {
-      const data = Array.from({ length: 1000 }, () => [
-        Math.floor(Math.random() * 1000),
-        Math.floor(Math.random() * 1000)
+      const data = Array.from({ length: 10 }, () => [
+        Math.floor(Math.random() * 1000000),
+        Math.floor(Math.random() * 1000000)
       ])
       data.forEach(innerArray => {
         if (innerArray[0] > innerArray[1]) {
@@ -39,6 +42,15 @@ const Home = () => {
       setLoading(false)
     }, 1)
   }
+  const deleteElement = index => {
+    const newData = [...data]
+    newData.splice(index, 1)
+    setData(newData)
+  }
+
+  useEffect(() => {
+    setMergedData(MERGE(data))
+  }, [data])
 
   return (
     <Container>
@@ -48,14 +60,10 @@ const Home = () => {
           <AddInput addData={addData} loadRandomSet={loadRandomSet} />
         </Grid>
         <Grid container item xs={12}>
-          <Chips
-            title="Eingabe"
-            data={data}
-            onDelete={element => console.log('delete', element)}
-          />
+          <Chips title="Eingabe" data={data} onDelete={deleteElement} />
         </Grid>
         <Grid container item xs={12}>
-          <Chips title="Ausgabe" data={data} />
+          <Chips title="Ausgabe" data={mergedData} />
         </Grid>
       </Grid>
     </Container>
