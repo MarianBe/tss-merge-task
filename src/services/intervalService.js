@@ -4,7 +4,7 @@
 export function MERGE(intervals) {
   console.time('Timer')
   // Check if given intervals are set and filled
-  if (!intervals || 0 >= intervals.length)
+  if (!intervals || intervals.length <= 0)
     return;
   
   // Sort intervals on first position ascending
@@ -19,7 +19,7 @@ export function MERGE(intervals) {
   result.push(intervals[0])
 
   // Prop to save last interval
-  let lastInterval = undefined
+  let lastInterval = null
 
   /*
     Skip the first element (already pushed to result)
@@ -39,7 +39,8 @@ export function MERGE(intervals) {
       result.push(intervals[i])
     } else if (intervals[i][1] > lastInterval[1]) {
       /* Else check if the second position of current interval is bigger
-        than the second position of the previous interval => update the second position of the previous interval
+        than the second position of the previous interval and
+        update the second position of the previous interval
       */
       lastInterval[1] = intervals[i][1]
     }
