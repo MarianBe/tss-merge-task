@@ -7,6 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import React, { useState } from 'react'
+import Grid from '@material-ui/core/Grid'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -20,7 +21,7 @@ const Container = styled.div`
   background: rgba(200, 200, 200, 0.4);
 `
 const textFieldStyle = {
-  width: '300px',
+  width: '100%',
   height: '57px',
   margin: '0 10px '
 }
@@ -78,33 +79,41 @@ const AddInput = ({ addData, loadRandomSet }) => {
   }
   return (
     <Container>
-      <TextField
-        name="NumberInput"
-        label="Zahlen mit Komma getrennt eingeben"
-        placeholder="Bsp: 14, 23"
-        onChange={handleChange}
-        value={input}
-        margin="normal"
-        variant="outlined"
-        style={textFieldStyle}
-        onKeyDown={keyPress}
-        error={Boolean(error)}
-        helperText={error}
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        style={buttonStyle}
-        onClick={checkAdd}>
-        +
-      </Button>
-      <Button
-        variant="contained"
-        color="secondary"
-        style={buttonStyle}
-        onClick={handleDialogClickOpen}>
-        Zufallsdaten laden
-      </Button>
+      <Grid container spacing={2}>
+        <Grid item xs={8} sm={8} md={7} lg={4}>
+          <TextField
+            name="NumberInput"
+            label="Zahlen mit Komma getrennt eingeben"
+            placeholder="Bsp: 14, 23"
+            onChange={handleChange}
+            value={input}
+            margin="normal"
+            variant="outlined"
+            style={textFieldStyle}
+            onKeyDown={keyPress}
+            error={Boolean(error)}
+            helperText={error}
+          />
+        </Grid>
+        <Grid item xs={2} sm={2} md={2} lg={5}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={buttonStyle}
+            onClick={checkAdd}>
+            +
+          </Button>
+        </Grid>
+        <Grid item xs={12} sm={12} md={3} lg={3}>
+          <Button
+            variant="contained"
+            color="secondary"
+            style={buttonStyle}
+            onClick={handleDialogClickOpen}>
+            Zufallsdaten laden
+          </Button>
+        </Grid>
+      </Grid>
       {/* Confirm Dialog for the Random Dataset */}
       <Dialog
         open={dialogOpen}
