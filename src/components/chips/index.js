@@ -1,5 +1,5 @@
-import React from 'react'
 import Chip from '@material-ui/core/Chip'
+import React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -38,6 +38,7 @@ const Header = ({ data, onDelete, title }) => {
         <ChipContainer>
           {data.map((element, index) => (
             <Chip
+              key={index}
               style={chipStyle}
               label={`[${element[0]}, ${element[1]}]`}
               onDelete={onDelete ? () => onDelete(index) : undefined}
