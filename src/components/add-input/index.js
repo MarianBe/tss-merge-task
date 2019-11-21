@@ -1,12 +1,12 @@
 /* eslint-disable radix */
-import React, { useState } from 'react'
-import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import TextField from '@material-ui/core/TextField'
+import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
 import styled from 'styled-components'
 
@@ -48,23 +48,23 @@ const AddInput = ({ addData, loadRandomSet }) => {
   const checkAdd = () => {
     /* check if the input fits our regex */
     if (!regex.test(input)) {
-      setError('Error bei der Eingabe')
+      setError('Fehler bei der Eingabe')
       return
     }
-    /* split the string input into an array of the values */
-    const inputArray = input.split(',')
+
+    let inputArray = input.split(',')
+
+    // Parse inputs to integers
     inputArray.forEach((inputNumber, index) => {
       inputArray[index] = parseInt(inputNumber)
     })
-    /* check if the values are in the right order */
+
+    // Check if first number bigger than second number
     if (inputArray[0] > inputArray[1]) {
-      setError('Die erste Zahl muss kleiner sein als die zweite')
-      return
+      // Reverse the inputs
+      inputArray = inputArray.reverse()
     }
-    if (inputArray[0] === inputArray[1]) {
-      setError('Die beiden Zahlen dürfen nicht gleichgroß sein')
-      return
-    }
+
     addData(inputArray)
     setInput('')
   }
@@ -125,7 +125,7 @@ const AddInput = ({ addData, loadRandomSet }) => {
         <DialogTitle id="alert-dialog-title">Zufallsdaten laden?</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Dabei werden Ihre bisher eingegeben Daten überschrieben. Sind sie
+            Dabei werden Ihre bisher eingegeben Daten überschrieben. Sind Sie
             sicher?
           </DialogContentText>
         </DialogContent>
