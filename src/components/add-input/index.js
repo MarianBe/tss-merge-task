@@ -51,7 +51,6 @@ const AddInput = ({ addData, loadRandomSet }) => {
       setError('Fehler bei der Eingabe')
       return
     }
-
     let inputArray = input.split(',')
 
     // Parse inputs to integers
