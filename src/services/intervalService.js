@@ -2,6 +2,7 @@
 
 // Function to merge overlapping intervals
 export function MERGE(intervals) {
+  console.time('Timer')
   // Check if given intervals are set and filled
   if (!intervals || 0 >= intervals.length)
     return;
@@ -43,6 +44,7 @@ export function MERGE(intervals) {
       lastInterval[1] = intervals[i][1]
     }
   }
+  console.timeEnd('Timer')
 
   return result
 }
