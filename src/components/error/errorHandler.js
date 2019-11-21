@@ -30,7 +30,7 @@ class ErrorBoundary extends React.Component {
       return (
         <Container>
           <h1>Something went wrong.</h1>
-          <img src="https://http.cat/500" />
+          <img src="https://http.cat/500" alt="Error 500" />
         </Container>
       )
     }
