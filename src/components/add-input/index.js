@@ -62,27 +62,31 @@ const AddInput = ({ addData, loadRandomSet }) => {
       return
     }
     addData(inputArray)
+    setInput('')
   }
   /* Handle the Inputchange and clear the Error */
   const handleChange = event => {
     setInput(event.target.value)
     setError()
   }
-
+  /* Check if User submitted with enter key */
+  const keyPress = e => {
+    if (e.keyCode === 13) {
+      checkAdd()
+    }
+  }
   return (
     <Container>
       <TextField
-        id="standard-textarea"
+        name="NumberInput"
         label="Zahlen mit Komma getrennt eingeben"
         placeholder="Bsp: 14, 23"
-        /* InputLabelProps={{
-          shrink: true
-        }} */
-        multiline
         onChange={handleChange}
+        value={input}
         margin="normal"
         variant="outlined"
         style={textFieldStyle}
+        onKeyDown={keyPress}
         error={Boolean(error)}
         helperText={error}
       />
