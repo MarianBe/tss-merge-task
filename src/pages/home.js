@@ -28,10 +28,11 @@ const Home = () => {
   const loadRandomSet = async () => {
     setLoading(true)
     setTimeout(() => {
-      const data = Array.from({ length: 10 }, () => [
-        Math.floor(Math.random() * 1000000),
-        Math.floor(Math.random() * 1000000)
-      ])
+      const data = Array.from({ length: 10 }, () => {
+        const randomValue = Math.floor(Math.random() * 300)
+        const add = Math.floor(Math.random() * 10)
+        return [randomValue, randomValue + add]
+      })
       data.forEach(innerArray => {
         if (innerArray[0] > innerArray[1]) {
           const memory = innerArray[0]
@@ -50,6 +51,10 @@ const Home = () => {
     newData.splice(index, 1)
     setData(newData)
   }
+  /* clear all data */
+  const clear = () => {
+    setData([])
+  }
   /* redo the merge if the data changed */
   useEffect(() => {
     setMergedData(MERGE(data))
@@ -60,7 +65,11 @@ const Home = () => {
       {loading && <Loader />}
       <Grid container spacing={1}>
         <Grid container item xs={12}>
-          <AddInput addData={addData} loadRandomSet={loadRandomSet} />
+          <AddInput
+            addData={addData}
+            loadRandomSet={loadRandomSet}
+            clear={clear}
+          />
         </Grid>
         <Grid container item xs={12}>
           <Chips title="Eingabe" data={data} onDelete={deleteElement} />
