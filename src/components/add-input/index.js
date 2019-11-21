@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import TextField from '@material-ui/core/TextField'
 import React, { useState } from 'react'
 import Grid from '@material-ui/core/Grid'
+import Icon from '@material-ui/core/Icon'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -23,17 +24,17 @@ const Container = styled.div`
 const textFieldStyle = {
   width: '100%',
   height: '57px',
-  margin: '0 10px '
+  margin: '0 0 10px'
 }
 const buttonStyle = {
   width: '100%',
   height: '57px',
-  margin: '0 10px'
+  margin: '0'
 }
 const regex = RegExp('^[-]?[0-9]+(,[ ]?[-]?[0-9]+)$')
 
-const AddInput = ({ addData, loadRandomSet }) => {
-  const [input, setInput] = useState()
+const AddInput = ({ addData, loadRandomSet, clear }) => {
+  const [input, setInput] = useState('')
   const [error, setError] = useState()
   /* For the Confirm Dialog */
   const [dialogOpen, setDialogOpen] = React.useState(false)
@@ -68,6 +69,12 @@ const AddInput = ({ addData, loadRandomSet }) => {
     addData(inputArray)
     setInput('')
   }
+  /** Clear the input and output */
+  const clearAll = () => {
+    clear()
+    setInput('')
+    setError()
+  }
   /* Handle the Inputchange and clear the Error */
   const handleChange = event => {
     setInput(event.target.value)
@@ -82,7 +89,7 @@ const AddInput = ({ addData, loadRandomSet }) => {
   return (
     <Container>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={8} md={7} lg={6}>
+        <Grid item xs={12} sm={8} md={8} lg={6}>
           <TextField
             name="NumberInput"
             label="Zahlen mit Komma getrennt eingeben"
@@ -97,19 +104,28 @@ const AddInput = ({ addData, loadRandomSet }) => {
             helperText={error}
           />
         </Grid>
-        <Grid item xs={12} sm={4} md={2} lg={2}>
+        <Grid item xs={6} sm={2} md={2} lg={2}>
           <Button
             variant="contained"
             color="primary"
             style={buttonStyle}
             onClick={checkAdd}>
-            +
+            <Icon>add</Icon>
           </Button>
         </Grid>
-        <Grid item xs={12} sm={12} md={3} lg={4}>
+        <Grid item xs={6} sm={2} md={2} lg={2}>
           <Button
             variant="contained"
             color="secondary"
+            style={buttonStyle}
+            onClick={clearAll}>
+            <Icon>delete-outline</Icon>
+          </Button>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={2}>
+          <Button
+            variant="contained"
+            color="default"
             style={buttonStyle}
             onClick={handleDialogClickOpen}>
             Zufallsdaten laden

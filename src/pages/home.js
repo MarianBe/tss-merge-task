@@ -50,6 +50,10 @@ const Home = () => {
     newData.splice(index, 1)
     setData(newData)
   }
+  /* clear all data */
+  const clear = () => {
+    setData([])
+  }
   /* redo the merge if the data changed */
   useEffect(() => {
     setMergedData(MERGE(data))
@@ -60,7 +64,11 @@ const Home = () => {
       {loading && <Loader />}
       <Grid container spacing={1}>
         <Grid container item xs={12}>
-          <AddInput addData={addData} loadRandomSet={loadRandomSet} />
+          <AddInput
+            addData={addData}
+            loadRandomSet={loadRandomSet}
+            clear={clear}
+          />
         </Grid>
         <Grid container item xs={12}>
           <Chips title="Eingabe" data={data} onDelete={deleteElement} />
