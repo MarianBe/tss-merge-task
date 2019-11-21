@@ -3,6 +3,5 @@
     "baseUrl": "src",
     "paths": {}
   },
-  "include": ["src"],
-  "extends": "./paths.json"
+  "include": ["src"]
 }
