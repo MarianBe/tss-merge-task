@@ -46,6 +46,7 @@ const AddInput = ({ addData, loadRandomSet }) => {
 
   /* Check the Inputs and then add to the Array if they are alright */
   const checkAdd = () => {
+    /* check if the input fits our regex */
     if (!regex.test(input)) {
       setError('Fehler bei der Eingabe')
       return

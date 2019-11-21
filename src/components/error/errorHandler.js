@@ -1,4 +1,13 @@
 import React from 'react'
+import styled from 'styled-components'
+const Container = styled.div`
+  padding: 30px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props)
@@ -11,14 +20,19 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    // You can also log the error to an error reporting service
+    // Log the error if we have a crash
     console.log(error, errorInfo)
   }
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>
+      // Render Error
+      return (
+        <Container>
+          <h1>Something went wrong.</h1>
+          <img src="https://http.cat/500" alt="Error 500" />
+        </Container>
+      )
     }
 
     return this.props.children
