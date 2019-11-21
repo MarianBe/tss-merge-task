@@ -26,10 +26,11 @@ const textFieldStyle = {
   margin: '0 10px '
 }
 const buttonStyle = {
+  width: '100%',
   height: '57px',
   margin: '0 10px'
 }
-const regex = RegExp('^[0-9]+(,[ ]?[0-9]+)$')
+const regex = RegExp('^[-]?[0-9]+(,[ ]?[-]?[0-9]+)$')
 
 const AddInput = ({ addData, loadRandomSet }) => {
   const [input, setInput] = useState()
@@ -81,7 +82,7 @@ const AddInput = ({ addData, loadRandomSet }) => {
   return (
     <Container>
       <Grid container spacing={2}>
-        <Grid item xs={8} sm={8} md={7} lg={4}>
+        <Grid item xs={12} sm={8} md={7} lg={6}>
           <TextField
             name="NumberInput"
             label="Zahlen mit Komma getrennt eingeben"
@@ -96,7 +97,7 @@ const AddInput = ({ addData, loadRandomSet }) => {
             helperText={error}
           />
         </Grid>
-        <Grid item xs={2} sm={2} md={2} lg={5}>
+        <Grid item xs={12} sm={4} md={2} lg={2}>
           <Button
             variant="contained"
             color="primary"
@@ -105,7 +106,7 @@ const AddInput = ({ addData, loadRandomSet }) => {
             +
           </Button>
         </Grid>
-        <Grid item xs={12} sm={12} md={3} lg={3}>
+        <Grid item xs={12} sm={12} md={3} lg={4}>
           <Button
             variant="contained"
             color="secondary"
