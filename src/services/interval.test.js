@@ -27,7 +27,20 @@ describe('MERGE', () => {
     ])
   })
 
+  it('Overlapping values', () => {
+    expect(
+      MERGE([
+        [2, 3],
+        [3, 4]
+      ])
+    ).toEqual([[2, 4]])
+  })
+
   it('Correct array', () => {
     expect(MERGE(data)).toEqual(expect.arrayContaining(expected))
+  })
+
+  it('Incorrect input', () => {
+    expect(MERGE([[1, 'a'], [(2, 'b')]])).toEqual(undefined)
   })
 })
